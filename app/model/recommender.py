@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
-from data_loader import DataLoader
+from app.model.data_loader import DataLoader
 
 class Recommender:
     def __init__(self, matrix_user_item):
