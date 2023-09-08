@@ -37,7 +37,7 @@ class Recommender:
         picked_userid_watched = self.matrix_user_item[self.matrix_user_item.index == picked_userid].dropna(axis=1, how='all')
 
         # Keep only the items associate to the similar users.
-        similar_user_movies = matrix_user_item[matrix_user_item.index.isin(similar_users.index)].dropna(axis=1,
+        similar_user_movies = self.matrix_user_item[self.matrix_user_item.index.isin(similar_users.index)].dropna(axis=1,
                                                                                                         how='all')
         similar_user_movies.drop(picked_userid_watched.columns, axis=1, inplace=True, errors='ignore')
         # Take a look at the data
@@ -102,11 +102,16 @@ class Recommender:
         elif method == "rating":
             return self.recommend_items_by_rating(user_id, top_m)
 
-if __name__ == "__main__":
-    loader = DataLoader()
-    matrix_user_item = loader.load("../../data/ml-latest-small")
+class RecommenderBuilder(Recommender):
+    def __init__(self, data_path):
+        loader = DataLoader()
+        matrix_user_item = loader.load(data_path)
+        super().__init__(matrix_user_item)
 
-    recommender = Recommender(matrix_user_item)
+if __name__ == "__main__":
+    data_path = "../../data/ml-latest-small"
+
+    recommender = RecommenderBuilder(data_path)
     user_id = 5
     rec1 = recommender.get_recommended_items(1, "count")
     print("Rec1:", rec1)
