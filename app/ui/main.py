@@ -1,25 +1,35 @@
 from flask import Flask
 from flask import render_template
 from flask import request
+import pandas as pd
 
 from app.model.recommender import RecommenderBuilder
 
 app = Flask(__name__)
 data_path = "../../data/ml-latest-small"
 
+movies = pd.read_csv(f'{data_path}/movies.csv')
+
 recommender = RecommenderBuilder(data_path)
+users = recommender.user_similarity.index
+recom_items = []
 
 @app.route("/")
 def show_ui():
-    users = recommender.user_similarity.index
     return render_template('index.html', users=users)
 
 @app.route("/recommend", methods=['GET', 'POST'])
 def recommend():
     select = request.form.get('user')
     print(select)
-    recommended_items = recommender.get_recommended_items(int(select))
-    return(str(recommended_items.to_json(orient="records")))
+    try:
+        recommended_items = recommender.get_recommended_items(int(select))
+        recommended_movies = pd.merge(recommended_items, movies, how="inner", on=["movieId"])
+        recom_items = recommended_movies[["movieId", "title"]]
+        recom_items = recom_items.values
+        return render_template('index.html', user_selected=select, users=users, recom_items=recom_items)
+    except:
+        return render_template('index.html', users=users)
 
 if __name__ == "__main__":
     app.run()
