@@ -2,11 +2,13 @@ from flask import Flask
 from flask import render_template
 from flask import request
 import pandas as pd
+import os
 
 from app.model.recommender import RecommenderBuilder
 
 app = Flask(__name__)
-data_path = "../../data/ml-latest-small"
+relative_data_path = "../../data/ml-latest-small"
+data_path = os.path.join(os.path.dirname(__file__), relative_data_path)
 
 movies = pd.read_csv(f'{data_path}/movies.csv')
 
