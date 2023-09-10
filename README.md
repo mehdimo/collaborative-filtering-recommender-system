@@ -7,5 +7,5 @@ In this simple application, we use [movie rating dataset](https://grouplens.org/
 ## How To Run
 To run the application, in your terminal:
 1. Change the directory to the current project
-2. Run `python app\ui\main.py`. 
+2. Run `python app\ui\main.py`
 3. Open the url `http://127.0.0.1:5000/` in your browser.
