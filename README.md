@@ -5,7 +5,9 @@ Given a dataset of users that are associated with a dataset of items (e.g., movi
 In this simple application, we use [movie rating dataset](https://grouplens.org/datasets/movielens/) to recommend new movies to users.
 
 ## How To Run
-To run the application, in your terminal:
+To run the appliscation, in your terminal:
 1. Change the directory to the current project
 2. Run `python app\ui\main.py`
 3. Open the url `http://127.0.0.1:5000/` in your browser.
+
+![Image recommendation UI](img/recommendation_ui.png)
