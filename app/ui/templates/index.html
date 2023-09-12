@@ -2,6 +2,47 @@
 <title>
     Recommender System
 </title>
+<head>
+    <style>
+h1,div{
+  font-family: Arial;
+}
+#recommendations {
+  font-family: Arial;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#recommendations td, #recommendations th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#recommendations tr:nth-child(even){background-color: #f2f2f2;}
+
+#recommendations tr:hover {background-color: #ddd;}
+
+#recommendations th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #6495ed;
+  color: white;
+}
+.btn {
+  background-color: #0099BA;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+</style>
+</head>
 <body>
 <h1>Recommender System</h1>
 <form class="form-inline" method="POST" action="{{ url_for('recommend') }}">
@@ -13,11 +54,11 @@
         {% endfor %}
         </select>
     </div>
-    <button type="submit" class="btn btn-default">Recommend</button>
+    <button type="submit" class="btn">Recommend</button>
 </form>
 <div>
     <span>Recommendation for user: </span><span>{{user_selected}}</span>
-    <table border="1" cellpadding="0" cellspacing="0">
+    <table border="1" cellpadding="0" cellspacing="0" id="recommendations">
         <tr>
             <th>Movie Id</th><th>Title</th>
         </tr>
